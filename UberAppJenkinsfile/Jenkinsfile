@@ -19,7 +19,7 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
             steps{
-                withSonarQubeEnv('sonar-scanner') {
+                withSonarQubeEnv('sonar_scanner') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=DevsecOp_project \
                     -Dsonar.projectKey=DevsecOp_project'''
                 }
@@ -28,7 +28,7 @@ pipeline{
         stage("quality gate"){
            steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkinstoken'
                 }
             }
         }
